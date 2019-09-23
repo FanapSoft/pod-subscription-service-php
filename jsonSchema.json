@@ -1,0 +1,405 @@
+{
+  "addSubscriptionPlan": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength" : 1,
+          "title": "نام طرح"
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0,
+          "title": "قیمت طرح"
+        },
+        "periodTypeCode": {
+          "type": "string",
+          "enum": ["SUBSCRIPTION_PLAN_PERIOD_TYPE_YEARLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_MONTHLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_DAILY"],
+          "title": "کد نوع بازه زمانی (روزانه، ماهانه، سالیانه)"
+        },
+        "periodTypeCount": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "تعداد مورد نظر از بازه زمانی",
+          "description": "به طور مثال اگر نوع بازه زمانی روزانه انتخاب شود و مقدار این فیلد 30 باشد یعنی این طرح بازه زمانی 30 روزه دارد."
+        },
+        "usageCountLimit": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "محدودیت تعداد دفعات استفاده"
+        },
+        "usageAmountLimit": {
+          "type": "number",
+          "minimum": 0,
+          "title": "محدودیت میزان استفاده"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["SUBSCRIPTION_PLAN_TYPE_BLOCK","SUBSCRIPTION_PLAN_TYPE_CASH"],
+          "title": "نوع طرح (مسدودی و یا نقدی)"
+        },
+        "guildCode": {
+          "type": "string",
+          "minLength": 1,
+          "title": "کد صنف برای صدور فاکتور جهت تسویه"
+        },
+        "permittedGuildCode": {
+          "type": "array",
+          "items": {
+            "type" : "string"
+          },
+          "title": "لیست کد صنف های مجاز جهت استفاده"
+        },
+        "permittedBusinessId": {
+          "type": "array",
+          "items": {
+            "type" : "integer"
+          },
+          "title": "شناسه کسب و کارهای مجاز جهت استفاده"
+        },
+        "permittedProductId": {
+          "type": "array",
+          "items": {
+            "type" : "integer"
+          },
+          "title": "لیست شناسه محصولات مجاز جهت استفاده"
+        },
+        "currencyCode": {
+          "type": "string",
+          "title": "کد ارز",
+          "description": "به طور مثال : IRR یا USD"
+        },
+        "productId": {
+          "type": "integer",
+          "title": "شناسه محصول"
+        }
+      },
+      "required": ["name", "price", "periodTypeCode", "periodTypeCount", "type", "productId", "guildCode"],
+      "additionalProperties": false
+    }
+  },
+  "subscriptionPlanList": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "title": "شناسه طرح"
+        },
+        "periodTypeCode": {
+          "type": "string",
+          "enum": ["SUBSCRIPTION_PLAN_PERIOD_TYPE_YEARLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_MONTHLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_DAILY"],
+          "title": "کد نوع بازه زمانی (روزانه، ماهانه، سالیانه)"
+        },
+        "periodTypeCountFrom": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "کف تعداد مورد نظر از بازه زمانی"
+        },
+        "periodTypeCountTo": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "سقف تعداد مورد نظر از بازه زمانی"
+        },
+        "fromPrice": {
+          "type": "number",
+          "minimum": 0,
+          "title": "حد پایین قیمت"
+        },
+        "toPrice": {
+          "type": "number",
+          "minimum": 0,
+          "title": "حد بالای قیمت"
+        },
+        "typeCode": {
+          "type": "string",
+          "enum": ["SUBSCRIPTION_PLAN_TYPE_BLOCK","SUBSCRIPTION_PLAN_TYPE_CASH"],
+          "title": "کد نوع طرح"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "اندیس شروع"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "تعداد رکورد در هر صفحه"
+        },
+        "enable": {
+          "type": "string",
+          "title": "فعال/غیرفعال بودن طرح"
+        },
+        "permittedGuildCode": {
+          "type": "array",
+          "items": {
+            "type" : "string"
+          },
+          "title": "لیست کد صنف های مجاز جهت استفاده"
+        },
+        "permittedBusinessId": {
+          "type": "array",
+          "items": {
+            "type" : "integer"
+          },
+          "title": "شناسه کسب و کارهای مجاز جهت استفاده"
+        },
+        "permittedProductId": {
+          "type": "array",
+          "items": {
+            "type" : "integer"
+          },
+          "title": "لیست شناسه محصولات مجاز جهت استفاده"
+        },
+        "currencyCode": {
+          "type": "string",
+          "title": "کد ارز",
+          "description": "به طور مثال : IRR یا USD"
+        }
+      },
+      "required": ["offset", "size"],
+      "additionalProperties": false
+    }
+  },
+  "updateSubscriptionPlan": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "form_params": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "title": "شناسه طرح"
+        },
+        "periodTypeCode": {
+          "type": "string",
+          "enum": ["SUBSCRIPTION_PLAN_PERIOD_TYPE_YEARLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_MONTHLY", "SUBSCRIPTION_PLAN_PERIOD_TYPE_DAILY"],
+          "title": "کد نوع بازه زمانی (روزانه، ماهانه، سالیانه)"
+        },
+        "periodTypeCount": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "تعداد مورد نظر از بازه زمانی",
+          "description": "به طور مثال اگر نوع بازه زمانی روزانه انتخاب شود و مقدار این فیلد 30 باشد یعنی این طره بازه زمانی 30 روزه دارد."
+        },
+        "usageCountLimit": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "محدودیت تعداد دفعات استفاده"
+        },
+        "usageAmountLimit": {
+          "type": "integer",
+          "title": "محدودیت میزان استفاده"
+        },
+        "name": {
+          "type": "string",
+          "title": "نام طرح"
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0,
+          "title": "قیمت طرح"
+        },
+        "enable": {
+          "type": "string",
+          "title": "وضعیت فعال/غیرفعال بودن طرح"
+        }
+      },
+      "required": ["id"],
+      "additionalProperties": false
+    }
+  },
+  "requestSubscription": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "form_params": {
+      "type": "object",
+      "properties": {
+        "subscriptionPlanId": {
+          "type": "integer",
+          "title": "شناسه طرح"
+        },
+        "userId": {
+          "type": "integer",
+          "title": "شناسه کاربر"
+        }
+      },
+      "required": ["subscriptionPlanId", "userId"],
+      "additionalProperties": false
+    }
+  },
+  "confirmSubscription": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "form_params": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "integer",
+          "title": "شناسه درخواست",
+          "description": "شناسه ایی که در جواب متد requestSubscription از سرور دریافت شده است"
+        },
+        "code": {
+          "type": "string",
+          "title": "کدی که به شماره موبایل کاربر پیامک شده است"
+        }
+      },
+      "required": ["subscriptionId", "code"],
+      "additionalProperties": false
+    }
+  },
+  "subscriptionList": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "subscriptionPlanId": {
+          "type": "integer",
+          "title": "شناسه طرح"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "اندیس شروع"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "title": "تعداد رکورد در هر صفحه"
+        }
+      },
+      "required": ["subscriptionPlanId", "offset", "size"],
+      "additionalProperties": false
+    }
+  },
+  "consumeSubscription": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "_token_": {
+          "type": "string",
+          "minLength": 1
+        },
+        "_token_issuer_": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_token_",
+        "_token_issuer_"
+      ],
+      "additionalProperties": true
+    },
+    "form_params": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "title": "شناسه طرح"
+        },
+        "usedAmount": {
+          "type": "number",
+          "title": "میزان استفاده از طرح"
+        }
+      },
+      "required": ["id"],
+      "additionalProperties": false
+    }
+  }
+}
