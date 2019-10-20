@@ -90,6 +90,14 @@
         "productId": {
           "type": "integer",
           "title": "شناسه محصول"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["name", "price", "periodTypeCode", "periodTypeCount", "type", "productId", "guildCode"],
@@ -190,6 +198,14 @@
           "type": "string",
           "title": "کد ارز",
           "description": "به طور مثال : IRR یا USD"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["offset", "size"],
@@ -253,6 +269,14 @@
         "enable": {
           "type": "string",
           "title": "وضعیت فعال/غیرفعال بودن طرح"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["id"],
@@ -287,6 +311,14 @@
         "userId": {
           "type": "integer",
           "title": "شناسه کاربر"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["subscriptionPlanId", "userId"],
@@ -322,6 +354,14 @@
         "code": {
           "type": "string",
           "title": "کدی که به شماره موبایل کاربر پیامک شده است"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["subscriptionId", "code"],
@@ -362,6 +402,14 @@
           "type": "integer",
           "minimum": 1,
           "title": "تعداد رکورد در هر صفحه"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["subscriptionPlanId", "offset", "size"],
@@ -396,6 +444,14 @@
         "usedAmount": {
           "type": "number",
           "title": "میزان استفاده از طرح"
+        },
+        "scVoucherHash": {
+          "type": "array",
+          "title": "کد تخفیف برای فراخوانی سرویس کال",
+          "description": "کد تخفیف برای فراخوانی سرویس کال",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["id"],

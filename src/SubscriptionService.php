@@ -16,16 +16,19 @@ class SubscriptionService extends BaseService
 {
     private $header;
     private static $subscriptionApi;
+    private static $serviceProductId;
 
     public function __construct($baseInfo)
     {
         parent::__construct();
-        self::$jsonSchema = json_decode(file_get_contents(__DIR__. '/../jsonSchema.json'), true);
+        self::$jsonSchema = json_decode(file_get_contents(__DIR__ . '/../config/validationSchema.json'), true);
         $this->header = [
             '_token_issuer_'    =>  $baseInfo->getTokenIssuer(),
             '_token_'           => $baseInfo->getToken(),
         ];
         self::$subscriptionApi = require __DIR__ . '/../config/apiConfig.php';
+        self::$serviceProductId = require __DIR__ . '/../config/serviceProductId.php';
+
     }
 
     public function addSubscriptionPlan($params) {
@@ -56,6 +59,9 @@ class SubscriptionService extends BaseService
             $withBracketParams['permittedProductId'] = $params['permittedProductId'];
             unset($params['permittedProductId']);
         }
+
+        # set service call product Id
+        $params['scProductId'] = self::$serviceProductId[$apiName];
         $option['withBracketParams'] = $withBracketParams;
         $option['withoutBracketParams'] = $params;
         //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
@@ -98,6 +104,9 @@ class SubscriptionService extends BaseService
             $withBracketParams['permittedProductId'] = $params['permittedProductId'];
             unset($params['permittedProductId']);
         }
+
+        # set service call product Id
+        $params['scProductId'] = self::$serviceProductId[$apiName];
         $option['withBracketParams'] = $withBracketParams;
         $option['withoutBracketParams'] = $params;
         //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
@@ -114,7 +123,9 @@ class SubscriptionService extends BaseService
 
     public function updateSubscriptionPlan($params) {
         $apiName = 'updateSubscriptionPlan';
-        $paramKey = self::$subscriptionApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+        $optionHasArray = false;
+        $method = self::$subscriptionApi[$apiName]['method'];
+        $paramKey = $method == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
@@ -125,18 +136,33 @@ class SubscriptionService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+
+        # prepare params to send
+        # set service call product Id
+        $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
+
+        if (isset($params['scVoucherHash'])) {
+            $option['withoutBracketParams'] =  $option[$paramKey];
+            unset($option[$paramKey]);
+            $optionHasArray = true;
+            $method = 'GET';
+        }
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$subscriptionApi[$apiName]['baseUri']],
-            self::$subscriptionApi[$apiName]['method'],
+            $method,
             $relativeUri,
-            $option
+            $option,
+            false,
+            $optionHasArray
         );
 
     }
 
     public function requestSubscription($params) {
         $apiName = 'requestSubscription';
-        $paramKey = self::$subscriptionApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+        $optionHasArray = false;
+        $method = self::$subscriptionApi[$apiName]['method'];
+        $paramKey = $method == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
@@ -147,17 +173,31 @@ class SubscriptionService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+        # prepare params to send
+        # set service call product Id
+        $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
+
+        if (isset($params['scVoucherHash'])) {
+            $option['withoutBracketParams'] =  $option[$paramKey];
+            unset($option[$paramKey]);
+            $optionHasArray = true;
+            $method = 'GET';
+        }
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$subscriptionApi[$apiName]['baseUri']],
-            self::$subscriptionApi[$apiName]['method'],
+            $method,
             $relativeUri,
-            $option
+            $option,
+            false,
+            $optionHasArray
         );
     }
 
     public function confirmSubscription($params) {
         $apiName = 'confirmSubscription';
-        $paramKey = self::$subscriptionApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+        $optionHasArray = false;
+        $method = self::$subscriptionApi[$apiName]['method'];
+        $paramKey = $method == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
@@ -168,17 +208,31 @@ class SubscriptionService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+        # prepare params to send
+        # set service call product Id
+        $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
+
+        if (isset($params['scVoucherHash'])) {
+            $option['withoutBracketParams'] =  $option[$paramKey];
+            unset($option[$paramKey]);
+            $optionHasArray = true;
+            $method = 'GET';
+        }
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$subscriptionApi[$apiName]['baseUri']],
-            self::$subscriptionApi[$apiName]['method'],
+            $method,
             $relativeUri,
-            $option
+            $option,
+            false,
+            $optionHasArray
         );
     }
 
     public function subscriptionList($params) {
         $apiName = 'subscriptionList';
-        $paramKey = self::$subscriptionApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+        $optionHasArray = false;
+        $method = self::$subscriptionApi[$apiName]['method'];
+        $paramKey = $method == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
@@ -189,18 +243,31 @@ class SubscriptionService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+        # prepare params to send
+        # set service call product Id
+        $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
+
+        if (isset($params['scVoucherHash'])) {
+            $option['withoutBracketParams'] =  $option[$paramKey];
+            unset($option[$paramKey]);
+            $optionHasArray = true;
+            $method = 'GET';
+        }
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$subscriptionApi[$apiName]['baseUri']],
-            self::$subscriptionApi[$apiName]['method'],
+            $method,
             $relativeUri,
             $option,
-            false
+            false,
+            $optionHasArray
         );
     }
 
     public function consumeSubscription($params) {
         $apiName = 'consumeSubscription';
-        $paramKey = self::$subscriptionApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+        $optionHasArray = false;
+        $method = self::$subscriptionApi[$apiName]['method'];
+        $paramKey = $method == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
@@ -211,11 +278,23 @@ class SubscriptionService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+        # prepare params to send
+        # set service call product Id
+        $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
+
+        if (isset($params['scVoucherHash'])) {
+            $option['withoutBracketParams'] =  $option[$paramKey];
+            unset($option[$paramKey]);
+            $optionHasArray = true;
+            $method = 'GET';
+        }
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$subscriptionApi[$apiName]['baseUri']],
-            self::$subscriptionApi[$apiName]['method'],
+            $method,
             $relativeUri,
-            $option
+            $option,
+            false,
+            $optionHasArray
         );
     }
 }
