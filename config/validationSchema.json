@@ -98,6 +98,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["name", "price", "periodTypeCode", "periodTypeCount", "type", "productId", "guildCode"],
@@ -206,6 +210,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["offset", "size"],
@@ -277,6 +285,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["id"],
@@ -319,6 +331,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["subscriptionPlanId", "userId"],
@@ -362,6 +378,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["subscriptionId", "code"],
@@ -410,6 +430,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["subscriptionPlanId", "offset", "size"],
@@ -452,6 +476,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "scApiKey": {
+          "type": "string",
+          "title": "توکن برای فراخوانی سرویس کال"
         }
       },
       "required": ["id"],

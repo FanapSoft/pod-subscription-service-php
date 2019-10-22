@@ -3,48 +3,44 @@ return
     [
         "addSubscriptionPlan" => [
             "baseUri"   =>  'PLATFORM-ADDRESS',
-            "subUri"    =>  'nzh/biz/addSubscriptionPlan/',
+            "subUri" => 'nzh/doServiceCall',
             "method"    =>  'GET'
         ],
 
         "subscriptionPlanList" => [
             "baseUri"   =>  'PLATFORM-ADDRESS',
-            "subUri"    =>  'nzh/biz/subscriptionPlanList/',
+            "subUri"    =>  'nzh/doServiceCall',
             "method"    =>  'GET'
         ],
 
         "updateSubscriptionPlan" => [
             'baseUri'   => 'PLATFORM-ADDRESS',
-            'subUri'    => 'nzh/biz/updateSubscriptionPlan/',
+            'subUri'    => 'nzh/doServiceCall',
             'method'    => 'POST'
         ],
 
         "requestSubscription" =>  [
             "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/requestSubscription',
+            "subUri" =>  'nzh/doServiceCall',
             "method" =>  'POST'
         ],
 
         "confirmSubscription" =>  [
             "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/confirmSubscription/',
+            "subUri" =>  'nzh/doServiceCall',
             "method" =>  'POST'
         ],
 
 
         "subscriptionList" =>  [
             "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/subscriptionList/',
+            "subUri" =>  'nzh/doServiceCall',
             "method" =>  'GET'
         ],
 
         "consumeSubscription" =>  [
             "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/consumeSubscription/',
+            "subUri" =>  'nzh/doServiceCall',
             "method" =>  'POST'
         ]
     ];
-
-
-
-
