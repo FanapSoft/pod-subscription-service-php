@@ -17,6 +17,7 @@ class SubscriptionService extends BaseService
     private $header;
     private static $subscriptionApi;
     private static $serviceProductId;
+    private static $baseUri;
 
     public function __construct($baseInfo)
     {
@@ -28,7 +29,8 @@ class SubscriptionService extends BaseService
         ];
         self::$subscriptionApi = require __DIR__ . '/../config/apiConfig.php';
         self::$serviceProductId = require __DIR__ . '/../config/serviceProductId.php';
-
+        self::$baseUri = self::$config[self::$serverType];
+        self::$serviceProductId = self::$serviceProductId[self::$serverType];
     }
 
     public function addSubscriptionPlan($params) {
