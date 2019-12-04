@@ -15,6 +15,7 @@ use Pod\Base\Service\ApiRequestHandler;
 class SubscriptionService extends BaseService
 {
     private $header;
+    private static $jsonSchema;
     private static $subscriptionApi;
     private static $serviceProductId;
     private static $baseUri;
@@ -41,12 +42,22 @@ class SubscriptionService extends BaseService
 
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
+        if (isset($params['productEntityId'])) {
+            $params['productId'] = $params['productEntityId'];
+            unset($params['productEntityId']);
+        }
+
+        if (isset($params['permittedProductEntityId'])) {
+            $params['permittedProductId'] = $params['permittedProductEntityId'];
+            unset($params['permittedProductEntityId']);
+        }
+
         $option = [
             'headers' => $this->header,
             $paramKey => $params, // set query param for validation
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         // prepare params to send
         $withBracketParams = [];
         if (isset($params['permittedGuildCode'])) {
@@ -84,13 +95,17 @@ class SubscriptionService extends BaseService
         $relativeUri = self::$subscriptionApi[$apiName]['subUri'];
 
         array_walk_recursive($params, 'self::prepareData');
+        if (isset($params['permittedProductEntityId'])) {
+            $params['permittedProductId'] = $params['permittedProductEntityId'];
+            unset($params['permittedProductEntityId']);
+        }
 
         $option = [
             'headers' => $this->header,
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $withBracketParams = [];
@@ -137,7 +152,7 @@ class SubscriptionService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         # prepare params to send
         # set service call product Id
@@ -174,7 +189,7 @@ class SubscriptionService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -209,7 +224,7 @@ class SubscriptionService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -244,7 +259,7 @@ class SubscriptionService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -279,7 +294,7 @@ class SubscriptionService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
